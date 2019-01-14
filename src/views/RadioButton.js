@@ -52,7 +52,7 @@ const Input = styled.input`
   }
 `;
 
-const RadioButton = ({ id, ...otherProps }) => {
+const RadioButton = ({ id, checked, ...otherProps }) => {
   return (
     <Container>
       <Input
@@ -60,8 +60,9 @@ const RadioButton = ({ id, ...otherProps }) => {
         name="radio1"
         id={id}
         value={id}
+        checked={checked}
         onChange={e => {
-          console.log(e.target.value);
+          otherProps.onChange(e.target.value);
         }}
       />
       <Label htmlFor={id}>{otherProps.children}</Label>
