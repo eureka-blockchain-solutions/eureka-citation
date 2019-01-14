@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import Encoding from "../Encoding";
 import Decoding from "../Decoding";
 import OptionPicker from "../OptionPicker";
@@ -19,13 +19,19 @@ class MainRouter extends Component {
     this.state = {};
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+
+  }
 
   render() {
     return (
       <Container>
         <Title>What do you want to do?</Title>
-        <OptionPicker />
+        <OptionPicker
+          onChange={value => {
+           this.props.history.push(`/${value}`)
+          }}
+        />
         <MarginTop>
           <Route path="/encoding" exact render={() => <Encoding />} />
           <Route path="/decoding" exact render={() => <Decoding />} />
@@ -36,4 +42,4 @@ class MainRouter extends Component {
   }
 }
 
-export default MainRouter;
+export default withRouter(MainRouter);

@@ -7,13 +7,25 @@ const Container = styled.div`
   justify-content: space-around;
 `;
 
-const OptionPicker = ({ otherProps }) => {
+const OptionPicker = ({ ...otherProps }) => {
   return (
     <Container>
-      <RadioButton id={"encoding"} onChange={value => {}}>
+      <RadioButton
+        id={"encoding"}
+        checked={window.location.href.toString().includes('encoding'.toString())}
+        onChange={value => {
+          otherProps.onChange(value);
+        }}
+      >
         Encoding
       </RadioButton>
-      <RadioButton id={"decoding"} onChange={value => {}}>
+      <RadioButton
+        id={"decoding"}
+        checked={window.location.href.toString().includes('decoding'.toString())}
+        onChange={value => {
+          otherProps.onChange(value);
+        }}
+      >
         Decoding
       </RadioButton>
     </Container>
