@@ -4,7 +4,7 @@ import RadioButton from "../views/RadioButton";
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 `;
 
 const OptionPicker = ({ ...otherProps }) => {
