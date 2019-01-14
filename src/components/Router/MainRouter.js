@@ -10,6 +10,7 @@ import {
 import Encoding from "../Encoding";
 import Decoding from "../Decoding";
 import OptionPicker from "../OptionPicker";
+import { __FIFTH, __THIRD } from "../../helpers/colors";
 
 const Container = styled.div`
   max-width: 1110px;
@@ -22,6 +23,14 @@ const Title = styled.h2`
 
 const MarginTop = styled.div`
   margin-top: 5em;
+`;
+
+const Separator = styled.div`
+  width: 1000px;
+  height: 2.5px;
+  margin-top: 85px;
+  background-image: linear-gradient(120deg, ${__THIRD} 0%, ${__FIFTH} 100%);
+  border-radius: 15px;
 `;
 
 class MainRouter extends Component {
@@ -41,6 +50,7 @@ class MainRouter extends Component {
             this.props.history.push(`/${value}`);
           }}
         />
+        <Separator />
         <MarginTop>
           <Route path="/encoding" exact render={() => <Encoding />} />
           <Route path="/decoding" exact render={() => <Decoding />} />
