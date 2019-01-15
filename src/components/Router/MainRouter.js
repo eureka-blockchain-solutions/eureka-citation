@@ -11,6 +11,7 @@ import Encoding from "../Encoding";
 import Decoding from "../Decoding";
 import OptionPicker from "../OptionPicker";
 import { __FIFTH, __THIRD } from "../../helpers/colors";
+import { Separator } from "../../views/Separator";
 
 const Container = styled.div`
   max-width: 1110px;
@@ -24,14 +25,6 @@ const Title = styled.h2`
 
 const MarginTop = styled.div`
   margin-top: 2em;
-`;
-
-const Separator = styled.div`
-  width: 100%;
-  height: 2.5px;
-  margin-top: 85px;
-  background-image: linear-gradient(120deg, ${__THIRD} 0%, ${__FIFTH} 100%);
-  border-radius: 15px;
 `;
 
 class MainRouter extends Component {
@@ -51,7 +44,7 @@ class MainRouter extends Component {
             this.props.history.push(`/${value}`);
           }}
         />
-        <Separator />
+        <Separator top={85}/>
         <MarginTop>
           <Route path="/encoding" exact render={() => <Encoding />} />
           <Route path="/decoding" exact render={() => <Decoding />} />

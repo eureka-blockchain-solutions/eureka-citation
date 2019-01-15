@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import { InputField } from "../views/design-components/Inputs";
 import web3 from "web3";
@@ -8,6 +8,8 @@ import animationData from "../views/animations/animation-w60-h45";
 import LottieControl from "../views/LottieManager";
 import AuthorLookup from "./AuthorLookup";
 import EncodingResult from "../views/EncodingResult";
+import { Separator } from "../views/Separator";
+import { EthereumAddress } from "../views/Address";
 
 const Container = styled.div``;
 
@@ -39,6 +41,7 @@ const Label = styled.label`
   font-weight: bold;
 `;
 
+const MyAddress = styled.div``;
 class Encoding extends Component {
   constructor() {
     super();
@@ -53,6 +56,9 @@ class Encoding extends Component {
   componentDidMount() {}
 
   checkStatus(value) {
+    if (this.state.encodedAddress) {
+      this.setState({ encodedAddress: null });
+    }
     if (web3.utils.isAddress(value)) {
       this.setState({ status: "valid", address: value });
     } else return this.setState({ status: "error", address: value });
@@ -108,7 +114,15 @@ class Encoding extends Component {
             Convert
           </ConvertButton>
         </ConvertContainer>
-        <EncodingResult encodedAddress={this.state.encodedAddress} />
+
+        {this.state.encodedAddress ? (
+          <Fragment>
+            <EncodingResult
+              encodedAddress={this.state.encodedAddress}
+              ethAddress={this.state.address}
+            />
+          </Fragment>
+        ) : null}
       </Container>
     );
   }

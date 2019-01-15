@@ -17,13 +17,13 @@ const RelativeContainer = styled.div`
 
 const Title = styled.h1`
   ${LARGE_DEVICES`
-        font-size: 38px;
+        font-size: 31px;
     `};
   position: absolute;
   font-family: "Indie Flower", cursive;
   bottom: -32px;
   right: -82px;
-  font-size: 47px;
+  font-size: 37px;
 `;
 
 class App extends Component {
@@ -31,7 +31,7 @@ class App extends Component {
     return (
       <Container>
         <RelativeContainer>
-          <EurekaLogo width={700} />
+          <EurekaLogo width={450} />
           <Title>Base58 Converter</Title>
         </RelativeContainer>
         <Converter />
