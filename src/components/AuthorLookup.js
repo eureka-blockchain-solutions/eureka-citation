@@ -50,7 +50,7 @@ class AuthorLookup extends React.Component {
                 return <Author key={i} author={author} {...this.props} />;
               } else {
                 return (
-                  <i>
+                  <i key={i}>
                     We did not found any user with this address in our database.
                   </i>
                 );

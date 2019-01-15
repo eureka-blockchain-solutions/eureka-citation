@@ -64,12 +64,15 @@ class Encoding extends Component {
     } else return this.setState({ status: "error", address: value });
   }
 
-  convert() {
+  async convert() {
+    this.setState({ encodedAddress: null });
+
     if (
       this.state.address.includes("0x") &&
       web3.utils.isAddress(this.state.address)
     ) {
       this.setState({ isConverting: true });
+      await new Promise(resolve => setTimeout(resolve, 300));
       const bytes = Buffer.from(this.state.address.substr(2), "hex");
       this.setState({ encodedAddress: bs58.encode(bytes) });
     } else {
@@ -98,17 +101,18 @@ class Encoding extends Component {
             padding={"12px"}
           />
         ) : null}
-        <ConvertContainer>
-          <ConvertButton
-            status={this.state.status}
-            onClick={() => {
-              this.convert();
-            }}
-          >
+        <ConvertContainer
+          onClick={async () => {
+            await this.convert();
+          }}
+        >
+          <ConvertButton status={this.state.status}>
             Convert
             <LottieControl
               animationData={animationData}
-              onComplete={() => {}}
+              onComplete={() => {
+                this.setState({ isConverting: false });
+              }}
               isPaused={!this.state.isConverting}
               width={30}
             />

@@ -12,7 +12,7 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  background: #302d960a;
+  background: ${__GRAY_100};
   padding: 20px 8px;
   margin-top: 20px;
   margin-bottom: 3em;
@@ -34,6 +34,18 @@ export const MarkdownTitle = styled.h3`
   font-size: 14px;
   font-family: monospace;
 `;
+
+const AddressesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 4;
+`;
+const QRContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+`;
+
 const EncodingResult = ({ ethAddress, encodedAddress }) => {
   const markdown = `
         ${ethAddress}
@@ -52,9 +64,13 @@ const EncodingResult = ({ ethAddress, encodedAddress }) => {
       </Header>
       <Separator bottom={15} top={15} width={"10%"} />
       <SubContainer>
-        <EurekaAddress encodedAddress={encodedAddress} />
-        <EKAQRCode encodedAddress={encodedAddress} />
-        <LatexCitation encodedAddress={encodedAddress} />
+        <AddressesContainer>
+          <EurekaAddress encodedAddress={encodedAddress} />
+          <LatexCitation encodedAddress={encodedAddress} />
+        </AddressesContainer>
+        <QRContainer>
+          <EKAQRCode encodedAddress={encodedAddress} />
+        </QRContainer>
       </SubContainer>
     </Container>
   );

@@ -13,7 +13,7 @@ const Container = styled.div`
 const LatexCitation = () => {
   return (
     <Container>
-      <MarkdownTitle>LatexCitation</MarkdownTitle>
+      <MarkdownTitle>Latex Citation Template</MarkdownTitle>
     </Container>
   );
 };
