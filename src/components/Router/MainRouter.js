@@ -10,13 +10,16 @@ import {
 import Encoding from "../Encoding";
 import Decoding from "../Decoding";
 import OptionPicker from "../OptionPicker";
-import { __FIFTH, __THIRD } from "../../helpers/colors";
+import { __FIFTH, __GRAY_100, __THIRD } from "../../helpers/colors";
 import { Separator } from "../../views/Separator";
 
 const Container = styled.div`
   max-width: 1110px;
   min-width: 800px;
-  padding: 0 20px;
+  background: ${__GRAY_100};
+  padding: 10px 30px;
+  border-radius: 5px;
+  margin-bottom: 4em;
 `;
 
 const Title = styled.h2`
@@ -44,7 +47,7 @@ class MainRouter extends Component {
             this.props.history.push(`/${value}`);
           }}
         />
-        <Separator top={85}/>
+        <Separator top={85} />
         <MarginTop>
           <Route path="/encoding" exact render={() => <Encoding />} />
           <Route path="/decoding" exact render={() => <Decoding />} />

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { MarkdownTitle } from "./EncodingResult";
 
 const Container = styled.div`
   flex: 1;
@@ -8,7 +9,11 @@ const Container = styled.div`
 `;
 
 const EurekaAddress = ({ encodedAddress }) => {
-  return <Container>EurekaAddress Functional Component</Container>;
+  return (
+    <Container>
+      <MarkdownTitle>Eureka Address</MarkdownTitle>
+    </Container>
+  );
 };
 
 export default EurekaAddress;
