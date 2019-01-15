@@ -7,6 +7,7 @@ import bs58 from "bs58";
 import animationData from "../views/animations/animation-w60-h45";
 import LottieControl from "../views/LottieManager";
 import AuthorLookup from "./AuthorLookup";
+import EncodingResult from "../views/EncodingResult";
 
 const Container = styled.div``;
 
@@ -107,6 +108,7 @@ class Encoding extends Component {
             Convert
           </ConvertButton>
         </ConvertContainer>
+        <EncodingResult encodedAddress={this.state.encodedAddress} />
       </Container>
     );
   }
