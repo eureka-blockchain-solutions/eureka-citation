@@ -11,7 +11,7 @@ const Container = styled.div`
   max-width: 1110px;
   min-width: 800px;
   border: 1px solid ${__GRAY_300};
-  padding: 10px 30px;
+  padding: 10px 30px 30px 30px;
   border-radius: 5px;
   margin-bottom: 4em;
 `;
