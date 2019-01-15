@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { LARGE_DEVICES } from "../../helpers/mobile";
 
 const Logo = styled.img`
+  ${LARGE_DEVICES`
+      width: ${props => props.width / 1.5}px;
+  `};
   height: ${props => (props.height ? props.height + "px" : "auto")};
   width: ${props => (props.width ? props.width + "px" : null)};
   display: ${props => (props.app ? "none" : "flex")};

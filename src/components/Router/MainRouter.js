@@ -14,6 +14,7 @@ import { __FIFTH, __THIRD } from "../../helpers/colors";
 
 const Container = styled.div`
   max-width: 1110px;
+  min-width: 800px;
   padding: 0 20px;
 `;
 
@@ -26,7 +27,7 @@ const MarginTop = styled.div`
 `;
 
 const Separator = styled.div`
-  width: 1000px;
+  width: 100%;
   height: 2.5px;
   margin-top: 85px;
   background-image: linear-gradient(120deg, ${__THIRD} 0%, ${__FIFTH} 100%);
