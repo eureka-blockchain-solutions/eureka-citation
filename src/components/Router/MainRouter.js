@@ -22,7 +22,7 @@ const Title = styled.h2`
 `;
 
 const MarginTop = styled.div`
-  margin-top: 5em;
+  margin-top: 2em;
 `;
 
 const Separator = styled.div`
