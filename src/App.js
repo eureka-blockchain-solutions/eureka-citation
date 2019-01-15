@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import EurekaLogo from "./views/icons/EurekaLogo";
 import Converter from "./components/Converter";
+import { LARGE_DEVICES } from "./helpers/mobile";
 
 const Container = styled.div`
   display: flex;
@@ -15,6 +16,9 @@ const RelativeContainer = styled.div`
 `;
 
 const Title = styled.h1`
+  ${LARGE_DEVICES`
+        font-size: 38px;
+    `};
   position: absolute;
   font-family: "Indie Flower", cursive;
   bottom: -32px;

@@ -6,6 +6,7 @@ import { __FIFTH, __GRAY_200, __THIRD } from "../helpers/colors";
 import bs58 from "bs58";
 import animationData from "../views/animations/animation-w60-h45";
 import LottieControl from "../views/LottieManager";
+import AuthorLookup from "./AuthorLookup";
 
 const Container = styled.div``;
 
@@ -72,15 +73,24 @@ class Encoding extends Component {
   render() {
     return (
       <Container>
-        <Label>EUREKA Addresss</Label>
+        <Label>EUREKA Address</Label>
         <InputField
-          style={{ marginTop: 5 }}
           onChange={e => {
             this.checkStatus(e.target.value);
           }}
           status={this.state.status}
           placeholder={"Enter here your Address.."}
         />
+        {this.state.status === "valid" ? (
+          <AuthorLookup
+            addresses={this.state.address}
+            right={10}
+            width={35}
+            height={35}
+            fontSize={12}
+            padding={"12px"}
+          />
+        ) : null}
         <ConvertContainer>
           <LottieControl
             animationData={animationData}
@@ -97,8 +107,6 @@ class Encoding extends Component {
             Convert
           </ConvertButton>
         </ConvertContainer>
-
-        {this.state.encodedAddress}
       </Container>
     );
   }
