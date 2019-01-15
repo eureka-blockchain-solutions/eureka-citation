@@ -6,6 +6,8 @@ const Container = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const LatexCitation = () => {

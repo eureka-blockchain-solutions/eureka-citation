@@ -1,22 +1,16 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import {
-  BrowserRouter,
-  Redirect,
-  Route,
-  Switch,
-  withRouter
-} from "react-router-dom";
+import { Redirect, Route, withRouter } from "react-router-dom";
 import Encoding from "../Encoding";
 import Decoding from "../Decoding";
 import OptionPicker from "../OptionPicker";
-import { __FIFTH, __GRAY_100, __THIRD } from "../../helpers/colors";
+import {__GRAY_100, __GRAY_200, __GRAY_300, __THIRD} from "../../helpers/colors";
 import { Separator } from "../../views/Separator";
 
 const Container = styled.div`
   max-width: 1110px;
   min-width: 800px;
-  background: ${__GRAY_100};
+  border: 1px solid ${__GRAY_300};
   padding: 10px 30px;
   border-radius: 5px;
   margin-bottom: 4em;

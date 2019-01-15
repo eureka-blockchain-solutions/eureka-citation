@@ -99,12 +99,6 @@ class Encoding extends Component {
           />
         ) : null}
         <ConvertContainer>
-          <LottieControl
-            animationData={animationData}
-            onComplete={() => {}}
-            isPaused={!this.state.isConverting}
-            width={75}
-          />
           <ConvertButton
             status={this.state.status}
             onClick={() => {
@@ -112,6 +106,12 @@ class Encoding extends Component {
             }}
           >
             Convert
+            <LottieControl
+              animationData={animationData}
+              onComplete={() => {}}
+              isPaused={!this.state.isConverting}
+              width={30}
+            />
           </ConvertButton>
         </ConvertContainer>
 

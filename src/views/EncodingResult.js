@@ -33,7 +33,6 @@ export const MarkdownTitle = styled.h3`
   text-align: center;
   font-size: 14px;
   font-family: monospace;
-  margin-bottom: -15px;
 `;
 const EncodingResult = ({ ethAddress, encodedAddress }) => {
   const markdown = `
@@ -42,14 +41,16 @@ const EncodingResult = ({ ethAddress, encodedAddress }) => {
   return (
     <Container>
       <Header>
-        <MarkdownTitle>Evaluating the following address:</MarkdownTitle>
+        <MarkdownTitle style={{ marginBottom: -15 }}>
+          Evaluating the following address:
+        </MarkdownTitle>
         <Markdown
           source={markdown}
           escapeHtml={false}
           style={{ marginTop: 0 }}
         />
       </Header>
-      <Separator bottom={30} top={15} width={"10%"} />
+      <Separator bottom={15} top={15} width={"10%"} />
       <SubContainer>
         <EurekaAddress encodedAddress={encodedAddress} />
         <EKAQRCode encodedAddress={encodedAddress} />

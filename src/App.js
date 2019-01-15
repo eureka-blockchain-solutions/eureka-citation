@@ -12,7 +12,7 @@ const Container = styled.div`
 
 const RelativeContainer = styled.div`
   position: relative;
-  margin-top: 30px;
+  margin-top: 15px;
 `;
 
 const Title = styled.h1`
