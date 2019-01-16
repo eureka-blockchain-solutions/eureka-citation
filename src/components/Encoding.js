@@ -13,7 +13,7 @@ import { EthereumAddress } from "../views/Address";
 
 const Container = styled.div``;
 
-const ConvertButton = styled.div`
+export const ConvertButton = styled.div`
   transition: 0.3s all ease-in-out;
   opacity: ${props => (props.status === "valid" ? 1 : 0.5)};
   cursor: ${props => (props.status === "valid" ? "pointer" : "default")};
@@ -28,7 +28,7 @@ const ConvertButton = styled.div`
   padding: 4px 12px;
 `;
 
-const ConvertContainer = styled.div`
+export const ConvertContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,7 +64,7 @@ class Encoding extends Component {
     } else return this.setState({ status: "error", address: value });
   }
 
-  async convert() {
+  async encode() {
     this.setState({ encodedAddress: null });
 
     if (
@@ -83,13 +83,13 @@ class Encoding extends Component {
   render() {
     return (
       <Container>
-        <Label>EUREKA Address</Label>
+        <Label>Ethereum Address</Label>
         <InputField
           onChange={e => {
             this.checkStatus(e.target.value);
           }}
           status={this.state.status}
-          placeholder={"Enter here your Address.."}
+          placeholder={"0xab5801a7d398351b8be11c439e05c5b3259aec9b"}
         />
         {this.state.status === "valid" ? (
           <AuthorLookup
@@ -103,11 +103,11 @@ class Encoding extends Component {
         ) : null}
         <ConvertContainer
           onClick={async () => {
-            await this.convert();
+            await this.encode();
           }}
         >
           <ConvertButton status={this.state.status}>
-            Convert
+            Encode
             <LottieControl
               animationData={animationData}
               onComplete={() => {
