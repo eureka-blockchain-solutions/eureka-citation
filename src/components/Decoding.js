@@ -9,6 +9,8 @@ import { ConvertButton, ConvertContainer } from "./Encoding";
 import DecodingResult from "../views/DecodingResult";
 import { EndPrefix, InitialPrefix } from "../constants/Prefix";
 import { ALLOWED_CHARACTERS_BS58 } from "../constants/Base58Characters";
+import Encoding from "./Encoding";
+
 const Container = styled.div``;
 const Label = styled.label`
   font-size: 15px;
@@ -20,7 +22,7 @@ class Decoding extends Component {
     super();
     this.state = {
       status: null,
-      ekaAddress: null,
+      ethAddress: null,
       decodedAddress: null,
       isConverting: false
     };
@@ -40,52 +42,47 @@ class Decoding extends Component {
     return flat;
   }
 
-  checkStatus(value) {
-    if (this.state.decodedAddress) {
-      this.setState({ decodedAddress: null });
+  // checks if there is prefix. If yes, it gets removed
+  static removePrefix(value) {
+    if (value.includes(InitialPrefix) && value.includes(EndPrefix)) {
+      return value
+        .toString()
+        .replace(InitialPrefix, "")
+        .replace(EndPrefix, "");
     }
-    if (!Decoding.areCharactersAllowedByBS58(value)) {
-      this.setState({ status: "error" });
-    } else {
-      if (value.includes(InitialPrefix) && value.includes(EndPrefix)) {
-        let noPrefix = value
-          .toString()
-          .replace(InitialPrefix, "")
-          .replace(EndPrefix, "");
-        console.log(noPrefix);
-        const bytes = bs58.decode(noPrefix);
-        const potentialAddress = bytes.toString("hex");
+    return value;
+  }
 
-        /*        let checksumAddress = web3.utils.toChecksumAddress(potentialAddress);*/
-        if (web3.utils.isAddress(potentialAddress)) {
-          this.setState({ status: "valid", ekaAddress: value });
-        } else {
-          this.setState({ status: "error" });
-        }
-        console.log(potentialAddress);
+  isValueValid(value) {
+    if (!Decoding.areCharactersAllowedByBS58(value)) {
+      return false;
+    } else {
+      const potentialAddress = bs58
+        .decode(Decoding.removePrefix(value))
+        .toString("hex");
+      if (web3.utils.isAddress(potentialAddress)) {
+        this.setState({
+          ethAddress: web3.utils.toChecksumAddress(potentialAddress)
+        });
+        return true;
       } else {
-        this.setState({ status: "error" });
+        return false;
       }
     }
   }
 
-  decode() {
-    // EKA3PTEBL6UqrZn1zJNxgewtbUQ5UNWxy
-    let addressToDecode = this.state.ekaAddress;
-    if (
-      this.state.ekaAddress.toString().includes(InitialPrefix) &&
-      this.state.ekaAddress.toString().includes(EndPrefix)
-    ) {
-      addressToDecode = this.state.ekaAddress
-        .toString()
-        .replace(InitialPrefix, "")
-        .toString()
-        .replace(EndPrefix, "");
+  checkStatus(value) {
+    if (this.state.decodedAddress) {
+      this.setState({ decodedAddress: null });
     }
-
-    const bytes = bs58.decode(addressToDecode);
-    this.setState({ decodedAddress: "0x" + bytes.toString("hex") });
+    if (this.isValueValid(value)) {
+      this.setState({ status: "valid" });
+    } else {
+      this.setState({ status: "error" });
+    }
   }
+
+  decode() {}
 
   render() {
     return (
