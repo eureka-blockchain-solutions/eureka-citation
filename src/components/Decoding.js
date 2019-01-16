@@ -2,18 +2,19 @@ import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import { InputField } from "../views/design-components/Inputs";
 import bs58 from "bs58";
+import web3 from "web3";
 import LottieControl from "../views/LottieManager";
 import animationData from "../views/animations/animation-w60-h45";
 import { ConvertButton, ConvertContainer } from "./Encoding";
 import DecodingResult from "../views/DecodingResult";
 import { EndPrefix, InitialPrefix } from "../constants/Prefix";
 import { ALLOWED_CHARACTERS_BS58 } from "../constants/Base58Characters";
-
 const Container = styled.div``;
 const Label = styled.label`
   font-size: 15px;
   font-weight: bold;
 `;
+
 class Decoding extends Component {
   constructor() {
     super();
@@ -27,7 +28,7 @@ class Decoding extends Component {
 
   componentDidMount() {}
 
-  areCharactersAllowedByBS58(value) {
+  static areCharactersAllowedByBS58(value) {
     let flat = true;
     for (let i = 0; i < value.length; i++) {
       const c = value.charAt(i).toString();
@@ -40,15 +41,32 @@ class Decoding extends Component {
   }
 
   checkStatus(value) {
-    /*    if (this.state.decodedAddress) {
+    if (this.state.decodedAddress) {
       this.setState({ decodedAddress: null });
-    }*/
-    if (!this.areCharactersAllowedByBS58(value)) {
-      this.setState({ status: "error" });
     }
-    /*    const bytes = bs58.decode(value);
-    const potentialAddress = "0x" + bytes.toString("hex");
-    console.log(potentialAddress);*/
+    if (!Decoding.areCharactersAllowedByBS58(value)) {
+      this.setState({ status: "error" });
+    } else {
+      if (value.includes(InitialPrefix) && value.includes(EndPrefix)) {
+        let noPrefix = value
+          .toString()
+          .replace(InitialPrefix, "")
+          .replace(EndPrefix, "");
+        console.log(noPrefix);
+        const bytes = bs58.decode(noPrefix);
+        const potentialAddress = bytes.toString("hex");
+
+        /*        let checksumAddress = web3.utils.toChecksumAddress(potentialAddress);*/
+        if (web3.utils.isAddress(potentialAddress)) {
+          this.setState({ status: "valid", ekaAddress: value });
+        } else {
+          this.setState({ status: "error" });
+        }
+        console.log(potentialAddress);
+      } else {
+        this.setState({ status: "error" });
+      }
+    }
   }
 
   decode() {
