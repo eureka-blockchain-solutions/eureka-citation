@@ -76,6 +76,7 @@ class Decoding extends Component {
   }
 
   decode() {
+    this.setState({ isConverting: true });
     if (this.isValueValid(this.state.ekaAddress)) {
       const potentialAddress = bs58
         .decode(Decoding.removePrefix(this.state.ekaAddress))

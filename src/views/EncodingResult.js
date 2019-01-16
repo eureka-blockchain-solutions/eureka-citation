@@ -7,6 +7,7 @@ import Markdown from "react-markdown";
 import Icon from "./icons/Icon";
 import { __GRAY_100, __GRAY_200, __GRAY_300 } from "../helpers/colors";
 import { Separator } from "./Separator";
+import { EndPrefix, InitialPrefix } from "../constants/Prefix";
 
 const Container = styled.div`
   display: flex;
@@ -19,7 +20,7 @@ const Container = styled.div`
   border-radius: 4px;
 `;
 
-const SubContainer = styled.div`
+export const SubContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
@@ -35,12 +36,12 @@ export const MarkdownTitle = styled.h3`
   font-family: monospace;
 `;
 
-const AddressesContainer = styled.div`
+export const AddressesContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 8;
 `;
-const QRContainer = styled.div`
+export const QRContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 4;
@@ -66,17 +67,11 @@ const EncodingResult = ({ ethAddress, encodedAddress }) => {
       <Separator bottom={15} top={15} width={"10%"} />
       <SubContainer>
         <AddressesContainer>
-          <EurekaAddress
-            encodedAddress={encodedAddress}
-          />
-          <LatexCitation
-            encodedAddress={encodedAddress}
-          />
+          <EurekaAddress encodedAddress={encodedAddress} />
+          <LatexCitation encodedAddress={encodedAddress} />
         </AddressesContainer>
         <QRContainer>
-          <EKAQRCode
-            encodedAddress={encodedAddress}
-          />
+          <EKAQRCode value={InitialPrefix + encodedAddress + EndPrefix} />
         </QRContainer>
       </SubContainer>
     </Container>
