@@ -9,6 +9,7 @@ import {
   __SECOND,
   __THIRD
 } from "../helpers/colors";
+import {EndPrefix, InitialPrefix} from "../constants/Prefix";
 
 const Container = styled.div`
   flex: 11;
@@ -79,14 +80,14 @@ const BibLine = ({ name, nameType, value, ...otherProps }) => {
   );
 };
 
-const LatexCitation = ({ encodedAddress, initialPrefix, endPrefix }) => {
+const LatexCitation = ({ encodedAddress }) => {
   return (
     <Container>
       <MarkdownTitle>BibTex</MarkdownTitle>
       <ContentEditable contentEditable spellCheck="false">
         <Entry>
           {`@`}article{`{`}
-          <Label>{initialPrefix + encodedAddress + endPrefix}</Label>
+          <Label>{InitialPrefix + encodedAddress + EndPrefix}</Label>
           <Default>,</Default>
           <br />
         </Entry>

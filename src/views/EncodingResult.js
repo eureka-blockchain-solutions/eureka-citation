@@ -51,8 +51,6 @@ const EncodingResult = ({ ethAddress, encodedAddress }) => {
         ${ethAddress}
     `;
 
-  const initialPrefix = "EKA";
-  const endPrefix = "xy";
   return (
     <Container>
       <Header>
@@ -70,20 +68,14 @@ const EncodingResult = ({ ethAddress, encodedAddress }) => {
         <AddressesContainer>
           <EurekaAddress
             encodedAddress={encodedAddress}
-            initialPrefix={initialPrefix}
-            endPrefix={endPrefix}
           />
           <LatexCitation
             encodedAddress={encodedAddress}
-            initialPrefix={initialPrefix}
-            endPrefix={endPrefix}
           />
         </AddressesContainer>
         <QRContainer>
           <EKAQRCode
             encodedAddress={encodedAddress}
-            initialPrefix={initialPrefix}
-            endPrefix={endPrefix}
           />
         </QRContainer>
       </SubContainer>

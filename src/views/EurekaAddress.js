@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { MarkdownTitle } from "./EncodingResult";
 import Markdown from "react-markdown";
 import { __GRAY_200 } from "../helpers/colors";
+import {EndPrefix, InitialPrefix} from "../constants/Prefix";
 
 const Container = styled.div`
   flex: 1;
@@ -28,9 +29,9 @@ const EurekaAddress = ({ encodedAddress, initialPrefix, endPrefix }) => {
     <Container>
       <MarkdownTitle>EKA Address</MarkdownTitle>
       <MyMarkDown>
-        <Prefix>{initialPrefix}</Prefix>
+        <Prefix>{InitialPrefix}</Prefix>
         {encodedAddress}
-        <Prefix>{endPrefix}</Prefix>
+        <Prefix>{EndPrefix}</Prefix>
       </MyMarkDown>
     </Container>
   );

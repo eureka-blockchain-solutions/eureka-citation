@@ -2,6 +2,7 @@ import React from "react";
 import QRCode from "qrcode.react";
 import styled from "styled-components";
 import { MarkdownTitle } from "./EncodingResult";
+import { EndPrefix, InitialPrefix } from "../constants/Prefix";
 
 const Container = styled.div`
   flex: 1;
@@ -11,11 +12,11 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const EKAQRCode = ({ encodedAddress, initialPrefix, endPrefix }) => {
+const EKAQRCode = ({ encodedAddress }) => {
   return (
     <Container>
       <MarkdownTitle>QR Code</MarkdownTitle>
-      <QRCode value={initialPrefix + encodedAddress + endPrefix} size={150} />
+      <QRCode value={InitialPrefix + encodedAddress + EndPrefix} size={150} />
     </Container>
   );
 };
