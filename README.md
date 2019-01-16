@@ -6,6 +6,8 @@ This WebApp is able to encode and decode addresses within the EUREKA ecosystem u
 It has since been applied to other cryptocurrencies and applications. It is similar to Base64 but has been modified to avoid both non-alphanumeric characters and letters which might look ambiguous when printed.
 
 In addition to that, EUREKA Encoding Algorithm adds well-known and recognizable prefix for making the addresses more compact and readable. 
+## Demo
+https://eureka-base58-converter.herokuapp.com/encoding
 
 ## EUREKA address design
 
