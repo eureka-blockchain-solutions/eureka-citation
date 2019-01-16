@@ -22,7 +22,7 @@ class Decoding extends Component {
     super();
     this.state = {
       status: null,
-      ethAddress: null,
+      ekaAddress: null,
       decodedAddress: null,
       isConverting: false
     };
@@ -60,14 +60,7 @@ class Decoding extends Component {
       const potentialAddress = bs58
         .decode(Decoding.removePrefix(value))
         .toString("hex");
-      if (web3.utils.isAddress(potentialAddress)) {
-        this.setState({
-          ethAddress: web3.utils.toChecksumAddress(potentialAddress)
-        });
-        return true;
-      } else {
-        return false;
-      }
+      return !!web3.utils.isAddress(potentialAddress);
     }
   }
 
@@ -76,13 +69,22 @@ class Decoding extends Component {
       this.setState({ decodedAddress: null });
     }
     if (this.isValueValid(value)) {
-      this.setState({ status: "valid" });
+      this.setState({ status: "valid", ekaAddress: value });
     } else {
       this.setState({ status: "error" });
     }
   }
 
-  decode() {}
+  decode() {
+    if (this.isValueValid(this.state.ekaAddress)) {
+      const potentialAddress = bs58
+        .decode(Decoding.removePrefix(this.state.ekaAddress))
+        .toString("hex");
+      this.setState({
+        decodedAddress: web3.utils.toChecksumAddress(potentialAddress)
+      });
+    }
+  }
 
   render() {
     return (
