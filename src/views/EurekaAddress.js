@@ -12,7 +12,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const MyMarkDown = styled.div`
+export const MyMarkDown = styled.div`
   font-family: monospace;
   letter-spacing: 1px;
   background: ${__GRAY_200};
@@ -20,17 +20,17 @@ const MyMarkDown = styled.div`
   border-radius: 4px;
 `;
 
-const Prefix = styled.span`
+export const Prefix = styled.span`
   font-weight: bold;
 `;
-const EurekaAddress = ({ encodedAddress }) => {
+const EurekaAddress = ({ encodedAddress, initialPrefix, endPrefix }) => {
   return (
     <Container>
       <MarkdownTitle>EKA Address</MarkdownTitle>
       <MyMarkDown>
-        <Prefix>EKA</Prefix>
+        <Prefix>{initialPrefix}</Prefix>
         {encodedAddress}
-        <Prefix>xy</Prefix>
+        <Prefix>{endPrefix}</Prefix>
       </MyMarkDown>
     </Container>
   );

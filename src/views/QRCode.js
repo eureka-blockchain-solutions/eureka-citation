@@ -11,11 +11,11 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const EKAQRCode = ({ encodedAddress }) => {
+const EKAQRCode = ({ encodedAddress, initialPrefix, endPrefix }) => {
   return (
     <Container>
       <MarkdownTitle>QR Code</MarkdownTitle>
-      <QRCode value={encodedAddress} size={150} />
+      <QRCode value={initialPrefix + encodedAddress + endPrefix} size={150} />
     </Container>
   );
 };

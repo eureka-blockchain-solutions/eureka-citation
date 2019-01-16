@@ -38,18 +38,21 @@ export const MarkdownTitle = styled.h3`
 const AddressesContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 4;
+  flex: 8;
 `;
 const QRContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 3;
+  flex: 4;
 `;
 
 const EncodingResult = ({ ethAddress, encodedAddress }) => {
   const markdown = `
         ${ethAddress}
     `;
+
+  const initialPrefix = "EKA";
+  const endPrefix = "xy";
   return (
     <Container>
       <Header>
@@ -65,11 +68,23 @@ const EncodingResult = ({ ethAddress, encodedAddress }) => {
       <Separator bottom={15} top={15} width={"10%"} />
       <SubContainer>
         <AddressesContainer>
-          <EurekaAddress encodedAddress={encodedAddress} />
-          <LatexCitation encodedAddress={encodedAddress} />
+          <EurekaAddress
+            encodedAddress={encodedAddress}
+            initialPrefix={initialPrefix}
+            endPrefix={endPrefix}
+          />
+          <LatexCitation
+            encodedAddress={encodedAddress}
+            initialPrefix={initialPrefix}
+            endPrefix={endPrefix}
+          />
         </AddressesContainer>
         <QRContainer>
-          <EKAQRCode encodedAddress={encodedAddress} />
+          <EKAQRCode
+            encodedAddress={encodedAddress}
+            initialPrefix={initialPrefix}
+            endPrefix={endPrefix}
+          />
         </QRContainer>
       </SubContainer>
     </Container>
