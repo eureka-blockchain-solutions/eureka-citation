@@ -1,6 +1,5 @@
 export const getDomain = () => {
   if (isProduction()) {
-    // TODO: insert prod url
     return "https://eurekaplatform.herokuapp.com/";
   }
   return "http://localhost:8080";

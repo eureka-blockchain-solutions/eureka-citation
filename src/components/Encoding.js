@@ -101,12 +101,13 @@ class Encoding extends Component {
             padding={"12px"}
           />
         ) : null}
-        <ConvertContainer
-          onClick={async () => {
-            await this.encode();
-          }}
-        >
-          <ConvertButton status={this.state.status}>
+        <ConvertContainer>
+          <ConvertButton
+            status={this.state.status}
+            onClick={async () => {
+              await this.encode();
+            }}
+          >
             Encode
             <LottieControl
               animationData={animationData}

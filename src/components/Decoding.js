@@ -98,12 +98,13 @@ class Decoding extends Component {
           status={this.state.status}
           placeholder={"EKA3PTEBL6UqrZn1zJNxgewtbUQ5UNWxy"}
         />
-        <ConvertContainer
-          onClick={async () => {
-            await this.decode();
-          }}
-        >
-          <ConvertButton status={this.state.status}>
+        <ConvertContainer>
+          <ConvertButton
+            status={this.state.status}
+            onClick={async () => {
+              await this.decode();
+            }}
+          >
             Decode
             <LottieControl
               animationData={animationData}

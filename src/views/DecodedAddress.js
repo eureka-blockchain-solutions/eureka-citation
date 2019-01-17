@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { __GRAY_200 } from "../helpers/colors";
-import { EndPrefix, InitialPrefix } from "../constants/Prefix";
-import { Prefix } from "./EurekaAddress";
 import { MarkdownTitle } from "./EncodingResult";
 
 const Container = styled.div`
