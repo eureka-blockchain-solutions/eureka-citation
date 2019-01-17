@@ -76,26 +76,13 @@ class Encoding extends Component {
       this.setState({ isConverting: true });
       await new Promise(resolve => setTimeout(resolve, 300));
 
-      let data = this.state.address.substr(2).toString();
-      let encoding = "hex";
+      let address = new Buffer(this.state.address.substr(2).toString(), "hex");
+      let hash = new Buffer(sha256(sha256(address)));
+      let checksum = hash.slice(0, 2);
 
-      if (typeof data === "string") {
-        data = new Buffer(data, encoding);
-        console.log(data);
-      }
+      let addressAndChecksum = Buffer.concat([address, checksum]);
 
-      let hash = crypto
-        .createHash("sha256")
-        .update(data)
-        .digest();
-      hash = crypto
-        .createHash("sha256")
-        .update(hash)
-        .digest();
-
-      const checksum = hash.slice(6, 7);
-      hash = Buffer.concat([data, checksum]);
-      const encodedAddress = bs58.encode(hash);
+      const encodedAddress = bs58.encode(addressAndChecksum);
       this.setState({ encodedAddress });
     }
   }

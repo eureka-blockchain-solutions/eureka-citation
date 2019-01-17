@@ -9,7 +9,8 @@ import { ConvertButton, ConvertContainer } from "./Encoding";
 import DecodingResult from "../views/DecodingResult";
 import { EndPrefix, InitialPrefix } from "../constants/Prefix";
 import { ALLOWED_CHARACTERS_BS58 } from "../constants/Base58Characters";
-import Encoding from "./Encoding";
+import crypto from "crypto";
+import sha256 from "sha256";
 
 const Container = styled.div``;
 const Label = styled.label`
@@ -65,25 +66,41 @@ class Decoding extends Component {
   }
 
   checkStatus(value) {
-    if (this.state.decodedAddress) {
-      this.setState({ decodedAddress: null });
-    }
-    if (this.isValueValid(value)) {
+    // TODO: --> REMOVE EKA PREFIX WHEN INSERTED
+
+    if (this.isCheckSum(value)) {
       this.setState({ status: "valid", ekaAddress: value });
     } else {
-      this.setState({ status: "error" });
+      this.setState({ status: "error", ekaAddress: value });
     }
+  }
+
+  isCheckSum(value) {
+    if (!Decoding.areCharactersAllowedByBS58(value)) {
+      return false;
+    }
+    let flag = true;
+    const buffer = new Buffer(bs58.decode(value));
+    const address = buffer.slice(0, -2);
+    const checksum = buffer.slice(-2);
+    let hash = new Buffer(sha256(sha256(address)));
+    checksum.forEach((digit, i) => {
+      if (digit !== hash[i]) {
+        flag = false;
+      }
+    });
+
+    return flag;
   }
 
   decode() {
     this.setState({ isConverting: true });
-    if (this.isValueValid(this.state.ekaAddress)) {
-      const potentialAddress = bs58
-        .decode(Decoding.removePrefix(this.state.ekaAddress))
-        .toString("hex");
-      this.setState({
-        decodedAddress: web3.utils.toChecksumAddress(potentialAddress)
-      });
+    if (this.isCheckSum(this.state.ekaAddress)) {
+      const buffer = new Buffer(bs58.decode(this.state.ekaAddress));
+      const decodedAddress = web3.utils.toChecksumAddress(
+        "0x" + buffer.slice(0, -2).toString("hex")
+      );
+      this.setState({ decodedAddress });
     }
   }
 
