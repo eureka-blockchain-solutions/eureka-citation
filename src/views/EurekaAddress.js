@@ -31,7 +31,7 @@ const EurekaAddress = ({ encodedAddress, initialPrefix, endPrefix }) => {
       <MyMarkDown>
         <Prefix>{InitialPrefix}</Prefix>
         {encodedAddress}
-        <Prefix>{EndPrefix}</Prefix>
+        {/*<Prefix>{EndPrefix}</Prefix>*/}
       </MyMarkDown>
     </Container>
   );

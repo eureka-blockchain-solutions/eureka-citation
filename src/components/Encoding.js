@@ -8,8 +8,10 @@ import animationData from "../views/animations/animation-w60-h45";
 import LottieControl from "../views/LottieManager";
 import AuthorLookup from "./AuthorLookup";
 import EncodingResult from "../views/EncodingResult";
-import { Separator } from "../views/Separator";
-import { EthereumAddress } from "../views/Address";
+
+import { EndPrefix } from "../constants/Prefix";
+import sha256 from "sha256";
+import CRC32 from "crc-32";
 
 const Container = styled.div``;
 
@@ -73,10 +75,16 @@ class Encoding extends Component {
     ) {
       this.setState({ isConverting: true });
       await new Promise(resolve => setTimeout(resolve, 300));
-      const bytes = Buffer.from(this.state.address.substr(2), "hex");
-      this.setState({ encodedAddress: bs58.encode(bytes) });
+
+      const checksumLength = 3;
+      let address = new Buffer(this.state.address.substr(2), "hex");
+      // similar to BTC
+      let hash = new Buffer(sha256(sha256(address)));
+      let buffer = Buffer.concat([address, hash.slice(0, checksumLength - 1)]);
+
+      this.setState({ encodedAddress: bs58.encode(buffer) });
     } else {
-      console.error("Address is not well formatted");
+      console.error("Address is not well formatted");   
     }
   }
 
