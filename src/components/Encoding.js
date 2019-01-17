@@ -11,7 +11,7 @@ import EncodingResult from "../views/EncodingResult";
 
 import { EndPrefix } from "../constants/Prefix";
 import sha256 from "sha256";
-import CRC32 from "crc-32";
+import crypto from "crypto";
 
 const Container = styled.div``;
 
@@ -76,15 +76,27 @@ class Encoding extends Component {
       this.setState({ isConverting: true });
       await new Promise(resolve => setTimeout(resolve, 300));
 
-      const checksumLength = 3;
-      let address = new Buffer(this.state.address.substr(2), "hex");
-      // similar to BTC
-      let hash = new Buffer(sha256(sha256(address)));
-      let buffer = Buffer.concat([address, hash.slice(0, checksumLength - 1)]);
+      let data = this.state.address.substr(2).toString();
+      let encoding = "hex";
 
-      this.setState({ encodedAddress: bs58.encode(buffer) });
-    } else {
-      console.error("Address is not well formatted");   
+      if (typeof data === "string") {
+        data = new Buffer(data, encoding);
+        console.log(data);
+      }
+
+      let hash = crypto
+        .createHash("sha256")
+        .update(data)
+        .digest();
+      hash = crypto
+        .createHash("sha256")
+        .update(hash)
+        .digest();
+
+      const checksum = hash.slice(6, 7);
+      hash = Buffer.concat([data, checksum]);
+      const encodedAddress = bs58.encode(hash);
+      this.setState({ encodedAddress });
     }
   }
 
