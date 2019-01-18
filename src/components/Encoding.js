@@ -76,12 +76,25 @@ class Encoding extends Component {
       this.setState({ isConverting: true });
       await new Promise(resolve => setTimeout(resolve, 300));
 
+      // TODO: mention it in the documentation because is more efficient
+        // TODO: since we are using a buffer representation you can represent whatever base you want (kinda conversion bridge)
       let address = new Buffer(this.state.address.substr(2).toString(), "hex");
       let hash = new Buffer(sha256(sha256(address)));
       let checksum = hash.slice(0, 2);
-
       let addressAndChecksum = Buffer.concat([address, checksum]);
 
+
+      // TODO: try to encode base62 (try to encode Ethereum address)
+        // Thomas says we save 1 character with base62
+        // TODO: do a table a see the difference between base56 and base62
+        // TODO: academic part for see the difference
+        // TODo: explore between 64 and 62 58 56 and Bech32
+        // TODO: Motivation --> eka address should be as shortest as possible --> checksum for avoiding copy paste typos
+        // TODO: EUREKA ALphabet --> check which characters are allowed by LATEX
+        // comparing pro and cons ans sizes between different bases
+        // discuss prons and cons of including ORCID in the eureka address
+        // PRO: you have a direct mapping between Ethereum and ORCID
+        // cons: address will be longer 
       const encodedAddress = bs58.encode(addressAndChecksum);
       this.setState({ encodedAddress });
     }
