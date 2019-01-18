@@ -66,8 +66,10 @@ class Decoding extends Component {
   }
 
   checkStatus(value) {
-    // TODO: --> REMOVE EKA PREFIX WHEN INSERTED
-
+    // remove prefix
+    value = value.includes(InitialPrefix)
+      ? value.substr(InitialPrefix.length)
+      : value;
     if (this.isCheckSum(value)) {
       this.setState({ status: "valid", ekaAddress: value });
     } else {
